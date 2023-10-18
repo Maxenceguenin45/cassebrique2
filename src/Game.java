@@ -44,7 +44,7 @@ public class Game extends Canvas implements KeyListener {
             int rows = 5; // Nombre de lignes
             int columns = 10; // Nombre de colonnes
             ArrayList<ArrayList<Brique>> briques = new ArrayList<>();//liste  a 2 dimension
-            Balle balle = new Balle(250,3,250,4,30);
+            Balle balle = new Balle(250,3,250,4,20);
             briques = new ArrayList<>();
             ArrayList<Rectangle> elements = new ArrayList<>();
 
@@ -74,6 +74,7 @@ public class Game extends Canvas implements KeyListener {
 
 
                 //----------------------
+                bar.setColor(Color.BLACK);
                 bar.dessine(dessin);
 
 
@@ -82,6 +83,7 @@ public class Game extends Canvas implements KeyListener {
                     for (Brique brique : row) {
 
                         if(brique.getVie()>0){
+                            brique.setColor(Color.green);
                            brique.dessine(dessin);
                         }
                     }

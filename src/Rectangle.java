@@ -3,7 +3,15 @@ import java.awt.*;
 public class Rectangle extends Sprite{
     protected int large;
     protected int longeur;
+    private Color color =Color.BLUE;
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public Rectangle(int positionX, int positionY, int large, int longeur) {
         super(positionX, positionY);
@@ -13,7 +21,7 @@ public class Rectangle extends Sprite{
 
     @Override
     public void dessine(Graphics2D dessin) {
-        dessin.setColor(Color.red);
+        dessin.setColor(color);
         dessin.fillRect(positionX,positionY,longeur,large);
 
 
