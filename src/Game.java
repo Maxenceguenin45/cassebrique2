@@ -5,17 +5,18 @@ import java.awt.event.KeyListener;
 
 public class Game extends Canvas implements KeyListener {
 
-    Barre bar =new Barre(0,0,400,0,10,30);
+    Barre bar =new Barre(400,250,10,30);
+    int size =500;
 
 
         public Game() throws InterruptedException {
 
-            setSize(500,500);
-            setBounds(0,0,500,500);
+            setSize(size,size);
+            setBounds(0,0,size,size);
 
             JFrame fenetre = new JFrame();
             JPanel panneau = (JPanel)fenetre.getContentPane();
-            panneau.setSize(500,500);
+            panneau.setSize(size,size);
             panneau.add(this);
 
             fenetre.pack();
@@ -45,20 +46,15 @@ public class Game extends Canvas implements KeyListener {
 
                 Graphics2D dessin = (Graphics2D) getBufferStrategy().getDrawGraphics();
                 //----------------------
-                dessin.setColor(Color.white);
-                dessin.fillRect(0,0,500,500);
+                bar.dessine(dessin);
 
-                dessin.setColor(Color.blue);
-                dessin.fillOval(balle.getPositionX(),balle.getPositionY(),balle.getDiametre(),balle.getDiametre());
-                dessin.setColor(Color.gray);
-                dessin.fillRect(bar.getPositionX(), bar.getPositionY(),bar.getLongeur(),bar.getLarge());
+
+                balle.dessine(dessin);
                 balle.deplacement();
                 balle.colistionBar(bar);
                 balle.testCollision();
 
 
-
-                //------------------------
 
                 dessin.dispose();
                 getBufferStrategy().show();
@@ -76,21 +72,12 @@ public class Game extends Canvas implements KeyListener {
 
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             // Code à exécuter lorsque la touche flèche vers la gauche est enfoncée
-            System.out.println(bar.getPositionX());
-            if( 500 >= bar.getPositionX() && 0 < bar.getPositionX()){
-                System.out.println("r");
-                bar.setVitesseHorizontal(-20);
-                bar.deplacement();
-                bar.setVitesseHorizontal(0);
-            }
+            System.out.println(bar.getPositionY());
+            bar.deplacementG(size);
+
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if( 500-bar.getLongeur()>bar.getPositionX() && 0<= bar.getPositionX()){
-
-                bar.setVitesseHorizontal(20);
-                bar.deplacement();
-                bar.setVitesseHorizontal(0);
-            }
-
+            System.out.println(bar.getPositionX());
+            bar.deplacementD(size);
             // Code à exécuter lorsque la touche flèche vers la droite est enfoncée
         }
 
