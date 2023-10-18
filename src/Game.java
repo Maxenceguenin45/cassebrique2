@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class Game extends Canvas implements KeyListener {
 
-    Barre bar =new Barre(400,250,10,30);
+    Barre bar =new Barre(250,400,10,30);
     int size =500;
 
 
@@ -40,9 +41,26 @@ public class Game extends Canvas implements KeyListener {
         }
 
         public void demarrer(JFrame fenetre) throws InterruptedException {
+            int rows = 5; // Nombre de lignes
+            int columns = 10; // Nombre de colonnes
+            ArrayList<ArrayList<Brique>> briques = new ArrayList<>();//liste  a 2 dimension
+            Balle balle = new Balle(250,3,250,4,30);
+            briques = new ArrayList<>();
+            ArrayList<Rectangle> elements = new ArrayList<>();
 
-            Balle balle = new Balle(0,3,0,4,30);
+            // Ajoutez la barre
+            elements.add(bar);
 
+            // Créez la liste bidimensionnelle pour les briques
+            for (int i = 0; i < rows; i++) {
+                ArrayList<Brique> rowBriques = new ArrayList<>();
+                for (int j = 0; j < columns; j++) {
+                    Brique brique = new Brique(j * 50, i * 40, 20, 40);
+                    rowBriques.add(brique);
+                    elements.add(brique);
+                }
+                briques.add(rowBriques);
+            }
 
             while(true) {
 
@@ -60,17 +78,23 @@ public class Game extends Canvas implements KeyListener {
 
 
                 balle.dessine(dessin);
+                for (ArrayList<Brique> row : briques) {
+                    for (Brique brique : row) {
+                        brique.dessine(dessin);
+                    }
+                }
 
                 balle.deplacement();
-                balle.colistionBar(bar);
+                balle.colistionBar(elements);
                 balle.testCollision();
 
 
 
                 dessin.dispose();
-                System.out.println("dispose");
+
                 getBufferStrategy().show();
                 Thread.sleep(1000 / 60);
+
             }
         }
 
