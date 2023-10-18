@@ -41,7 +41,7 @@ public class Game extends Canvas implements KeyListener {
         }
 
         public void demarrer(JFrame fenetre) throws InterruptedException {
-            int ligne = 5; // Nombre de lignes brique
+            int ligne = 3; // Nombre de lignes brique
             int columns = 10; // Nombre de colonnes brique
             int nombreDeVies = 3;
             ArrayList<ArrayList<Brique>> briques = new ArrayList<>();//liste  a 2 dimension
@@ -108,8 +108,11 @@ public class Game extends Canvas implements KeyListener {
                     for (int i = 0; i < vies.length; i++){
                         if (vies[i].isFlag()){
                             vies[i].setFlag(false);
+                            balle.setPositionX(250);
+                            balle.setPositionY(250);
                             break;
                         }
+
                     }
                 }
 
