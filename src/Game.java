@@ -45,7 +45,7 @@ public class Game extends Canvas implements KeyListener {
             int columns = 10; // Nombre de colonnes brique
             int nombreDeVies = 3;
             ArrayList<ArrayList<Brique>> briques = new ArrayList<>();//liste  a 2 dimension
-            Balle balle = new Balle(250,3,250,4,20);
+            Balle balle = new Balle(250,3,250,5,20);
             briques = new ArrayList<>();
             ArrayList<Rectangle> elements = new ArrayList<>();
 
