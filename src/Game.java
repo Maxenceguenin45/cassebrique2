@@ -23,16 +23,18 @@ public class Game extends Canvas implements KeyListener {
             fenetre.setResizable(false);
             fenetre.setVisible(true);
             fenetre.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            fenetre.requestFocus();
 
-            createBufferStrategy(2);
+
+            this.createBufferStrategy(2);
             fenetre.addKeyListener(this);
+            setIgnoreRepaint(true);
+            setFocusable(false);
+
             this.demarrer(fenetre);
 
 
 
-            setIgnoreRepaint(true);
-            setFocusable(false);
+
 
 
         }
@@ -45,11 +47,20 @@ public class Game extends Canvas implements KeyListener {
             while(true) {
 
                 Graphics2D dessin = (Graphics2D) getBufferStrategy().getDrawGraphics();
+
+
+
+                dessin.setColor(Color.white);
+                dessin.fillRect(0,0,size,size);
+
+
+
                 //----------------------
                 bar.dessine(dessin);
 
 
                 balle.dessine(dessin);
+
                 balle.deplacement();
                 balle.colistionBar(bar);
                 balle.testCollision();
@@ -57,6 +68,7 @@ public class Game extends Canvas implements KeyListener {
 
 
                 dessin.dispose();
+                System.out.println("dispose");
                 getBufferStrategy().show();
                 Thread.sleep(1000 / 60);
             }
