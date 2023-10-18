@@ -26,13 +26,16 @@ public class Balle extends Rond implements Deplacade {
     public void setVitesseHorizontal(int vitesseHorizontal) {
         this.vitesseHorizontal = vitesseHorizontal;
     }
-    public void testCollision() {
-        if(this.positionX >= 500 - 30 || this.positionX <= 0) {
+    public boolean testCollision(int size) {
+        if(this.positionX >= size - diametre || this.positionX <= 0) {
             this.vitesseHorizontal = - vitesseHorizontal;
+            return false;
         }
-        if(this.positionY >= 500 - 30 || this.positionY <= 0) {
+        if(this.positionY >= size - diametre || this.positionY <= 0) {
             this.vitesseVertical = -vitesseVertical;
+            return true;
         }
+        return false;
 
     }
     public Balle(int positionX, int vitesseHorizontal, int positionY, int vitesseVertical, int diametre) {
@@ -65,6 +68,8 @@ public class Balle extends Rond implements Deplacade {
                         enCollision = true;
                         dernierTempsCollision = tempsCourant;
                         // Inverser la direction de la balle
+                        //this.vitesseHorizontal +=1;
+                        //this.vitesseVertical +=1;
                         this.vitesseHorizontal = -this.vitesseHorizontal;
                         this.vitesseVertical = -this.vitesseVertical;
                     }

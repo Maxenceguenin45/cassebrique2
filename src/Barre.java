@@ -11,14 +11,14 @@ public class Barre extends Rectangle {
 
 
     public void deplacementD(int taillefenetre) {
-        if (positionX + 20 >= 0 && positionX + 20 <= taillefenetre - 20) {
-            this.positionX += 20;
+        if (positionX + 30 >= 0 && positionX + 30 <= taillefenetre - 20) {
+            this.positionX += 30;
         }
     }
 
     public void deplacementG(int taillefenetre) {
-        if (positionX >= 20 && positionX - 20 <= taillefenetre) {
-            this.positionX -= 20;
+        if (positionX >= 30 && positionX - 30 <= taillefenetre) {
+            this.positionX -= 30;
         }
     }
 

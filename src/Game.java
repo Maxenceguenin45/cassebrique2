@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Game extends Canvas implements KeyListener {
 
-    Barre bar =new Barre(250,400,10,30);
+    Barre bar =new Barre(250,400,10,50);
     int size =500;
 
 
@@ -41,8 +41,9 @@ public class Game extends Canvas implements KeyListener {
         }
 
         public void demarrer(JFrame fenetre) throws InterruptedException {
-            int rows = 5; // Nombre de lignes
-            int columns = 10; // Nombre de colonnes
+            int ligne = 5; // Nombre de lignes brique
+            int columns = 10; // Nombre de colonnes brique
+            int nombreDeVies = 3;
             ArrayList<ArrayList<Brique>> briques = new ArrayList<>();//liste  a 2 dimension
             Balle balle = new Balle(250,3,250,4,20);
             briques = new ArrayList<>();
@@ -52,14 +53,20 @@ public class Game extends Canvas implements KeyListener {
             elements.add(bar);
 
             // Créez la liste bidimensionnelle pour les briques
-            for (int i = 0; i < rows; i++) {
-                ArrayList<Brique> rowBriques = new ArrayList<>();
+            for (int i = 0; i < ligne; i++) {
+                ArrayList<Brique> ligneBriques = new ArrayList<>();
                 for (int j = 0; j < columns; j++) {
                     Brique brique = new Brique(j * 50, i * 40, 20, 40);
-                    rowBriques.add(brique);
+                    ligneBriques.add(brique);
                     elements.add(brique);
                 }
-                briques.add(rowBriques);
+                briques.add(ligneBriques);
+            }
+
+            Vie[] vies = new Vie[nombreDeVies];
+            for (int i = 0; i < vies.length; i++) {
+                vies[i] = new Vie(30*i,450,30);
+                vies[i].setColor(Color.pink);
             }
 
             while(true) {
@@ -76,7 +83,12 @@ public class Game extends Canvas implements KeyListener {
                 //----------------------
                 bar.setColor(Color.BLACK);
                 bar.dessine(dessin);
+                for (int i = 0; i < vies.length; i++) {
+                    if (vies[i].isFlag()){
+                        vies[i].dessine(dessin);
+                    }
 
+                }
 
                 balle.dessine(dessin);
                 for (ArrayList<Brique> row : briques) {
@@ -89,9 +101,17 @@ public class Game extends Canvas implements KeyListener {
                     }
                 }
 
+
                 balle.deplacement();
                 balle.colistionBar(elements);
-                balle.testCollision();
+                if(balle.testCollision(size)){
+                    for (int i = 0; i < vies.length; i++){
+                        if (vies[i].isFlag()){
+                            vies[i].setFlag(false);
+                            break;
+                        }
+                    }
+                }
 
 
 
