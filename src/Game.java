@@ -80,7 +80,10 @@ public class Game extends Canvas implements KeyListener {
                 balle.dessine(dessin);
                 for (ArrayList<Brique> row : briques) {
                     for (Brique brique : row) {
-                        brique.dessine(dessin);
+
+                        if(brique.getVie()>0){
+                           brique.dessine(dessin);
+                        }
                     }
                 }
 

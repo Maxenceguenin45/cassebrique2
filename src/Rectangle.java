@@ -4,6 +4,7 @@ public class Rectangle extends Sprite{
     protected int large;
     protected int longeur;
 
+
     public Rectangle(int positionX, int positionY, int large, int longeur) {
         super(positionX, positionY);
         this.large=large;

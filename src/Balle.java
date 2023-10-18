@@ -5,7 +5,7 @@ public class Balle extends Rond {
     private int vitesseHorizontal ;
     private boolean enCollision = false;
     private long dernierTempsCollision = 0;
-    private static final long TEMPS_ATTENTE_COLLISION = 69; // Temps d'attente en millisecondes
+    private static final long TEMPS_ATTENTE_COLLISION = 60; // Temps d'attente en millisecondes
 
 
     public int getVitesseVertical() {
@@ -58,37 +58,30 @@ public class Balle extends Rond {
         long tempsCourant = System.currentTimeMillis();
         if (tempsCourant - dernierTempsCollision > TEMPS_ATTENTE_COLLISION) {
             for (Rectangle element : elements) {
-
                 if (element instanceof Barre) {
                     Barre bar = (Barre) element;
-
                     if (this.positionX + diametre >= bar.getPositionX() && this.positionX - diametre <= bar.getPositionX() + bar.getLarge() && this.positionY + diametre >= bar.getPositionY() && this.positionY - diametre / 2 <= bar.getPositionY() + bar.getLarge()) {
                         System.out.println("Collision avec la barre");
                         enCollision = true;
                         dernierTempsCollision = tempsCourant;
-                        this.positionX -= this.vitesseHorizontal;
-                        this.positionY -= this.vitesseVertical;
-
-
+                        // Inverser la direction de la balle
+                        this.vitesseHorizontal = -this.vitesseHorizontal;
+                        this.vitesseVertical = -this.vitesseVertical;
                     }
-
-
                 } else if (element instanceof Brique) {
                     Brique brique = (Brique) element;
-
-                    if (this.positionX + diametre >= brique.getPositionX() && this.positionX - diametre <= brique.getPositionX() + brique.getLarge() && this.positionY + diametre >= brique.getPositionY() && this.positionY - diametre / 2 <= brique.getPositionY() + brique.getLarge()) {
+                    if (this.positionX + diametre-10 >= brique.getPositionX() && this.positionX - diametre-10 <= brique.getPositionX() + brique.getLarge()-5 && this.positionY + diametre-10 >= brique.getPositionY() && this.positionY - diametre / 2 <= brique.getPositionY() + brique.getLarge()-5 && brique.getVie()>0) {
                         System.out.println("Collision avec une brique");
                         enCollision = true;
                         dernierTempsCollision = tempsCourant;
-                        this.positionX -= this.vitesseHorizontal;
-                        this.positionY -= this.vitesseVertical;
-
-
+                        brique.setVie(brique.getVie()-1);
+                        // Inverser la direction de la balle
+                        this.vitesseHorizontal = -this.vitesseHorizontal;
+                        this.vitesseVertical = -this.vitesseVertical;
                     }
-
                 }
             }
         }
-
     }
+
 }
