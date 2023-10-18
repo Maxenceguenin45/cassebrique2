@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Balle extends Rond {
+public class Balle extends Rond implements Deplacade {
     private int vitesseVertical ;
     private int vitesseHorizontal ;
     private boolean enCollision = false;
